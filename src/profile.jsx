@@ -4,7 +4,7 @@ function Profile() {
   const [profile, setProfile] = useState("");
   const [data, setData] = useState("");
   const [repo, setrepo] = useState([]);
-  const listRepos = repo.slice(1, 4);
+  const listRepos = repo.slice(1, 5);
   const apiCalls = async () => {
     const [response1, response2] = await Promise.all([
       fetch(`https://api.github.com/users/${profile}`),
@@ -31,24 +31,24 @@ function Profile() {
       >
         search
       </button>
-      <div className=" flex  justify-evenly">
-        <div className="w-60  h-full pt-5 ">
+      <div className=" flex  justify-evenly pt-5">
+        <div className="w-64 h-full  ">
           <img
             src={data.avatar_url}
             alt=" "
-            className=" h-52 w-52 rounded-full "
+            className=" h-60 w-60 rounded-full "
           />
           <h1 className="text-3xl font-bold py-2">{data.name}</h1>
           <h2>{data.bio}</h2>
         </div>
-        <div className="w-1/2 h-full px-20 py-10">
+        <div className="w-1/2 h-full py-10 px-20 text-start">
           {listRepos.map((repo) => (
             <div
-              className="text-xl font-bold  py-5 bg-zinc-600 rounded-xl m-1 "
+              className=" text-xl py-1 px-5 bg-zinc-700 rounded-xl m-1 "
               key={repo.id}
             >
-              {repo.name}
-              <h3>{repo.description}</h3>
+              <h2 className="font-bold ">{repo.name}</h2>
+              <p className=" text-sm ">{repo.description}</p>
             </div>
           ))}
         </div>
