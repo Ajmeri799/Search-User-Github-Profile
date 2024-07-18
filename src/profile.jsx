@@ -1,28 +1,20 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 function Profile() {
   const [profile, setProfile] = useState("");
   const [data, setData] = useState("");
-  const [repoUrl, setrepoUrl] = useState(null);
   const [repo, setrepo] = useState([]);
-  const apiCalls = () => {
-    fetch(`https://api.github.com/users/${profile}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-        setrepoUrl(data.repos_url);
-      });
-    fetch(repoUrl)
-      .then((response) => response.json())
-      .then((repos) => {
-        setrepo(repos);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+  const listRepos = repo.slice(1, 4);
+  const apiCalls = async () => {
+    const [response1, response2] = await Promise.all([
+      fetch(`https://api.github.com/users/${profile}`),
+      fetch(`https://api.github.com/users/${profile}/repos`),
+    ]);
+    const data1 = await response1.json();
+    const data2 = await response2.json();
+    setData(data1);
+    setrepo(data2);
   };
-
-  // console.log(repoUrl);
   return (
     <>
       <h1 className=" text-3xl font-bold">Github Profile</h1>
@@ -50,7 +42,7 @@ function Profile() {
           <h2>{data.bio}</h2>
         </div>
         <div className="w-1/2 h-full px-20 py-10">
-          {repo.map((repo) => (
+          {listRepos.map((repo) => (
             <div
               className="text-xl font-bold  py-5 bg-zinc-600 rounded-xl m-1 "
               key={repo.id}
@@ -60,16 +52,6 @@ function Profile() {
             </div>
           ))}
         </div>
-        {/* <div className="w-1/2 h-full px-20 py-10">
-          <div className="text-xl font-bold  py-5 bg-zinc-600 rounded-xl m-1 ">
-            {repo[1].name}
-            <h3>{repo[1].description}</h3>
-          </div>
-          <div className="text-xl font-bold  py-5 bg-zinc-600 rounded-xl m-1 ">
-            {repo[2].name}
-            <h3>{repo[2].description}</h3>
-          </div>
-        </div> */}
       </div>
     </>
   );
