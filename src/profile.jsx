@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 function Profile() {
+  
   const [profile, setProfile] = useState("");
   const [data, setData] = useState("");
   const [repo, setrepo] = useState([]);
