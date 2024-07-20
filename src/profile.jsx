@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
+
 function Profile() {
   
   const [profile, setProfile] = useState("");
   const [data, setData] = useState("");
   const [repo, setrepo] = useState([]);
-  // const listrepo = repo.slice(1, 5);
 
   const githubAPI = async () => {
     if (profile == "") {
@@ -27,13 +27,7 @@ function Profile() {
       }
     }
   };
-  // if (repo == "") {
-  //
-  // } else {
-  //   const val = repo.slice(1, 5);
-  //   setListrepo(val);
-  // }
-
+  
   return (
     <>
       <h1 className=" text-3xl font-bold">Github Profile</h1>
